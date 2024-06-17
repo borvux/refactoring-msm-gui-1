@@ -13,11 +13,14 @@
 #  director_id :integer
 #
 class Movie < ApplicationRecord
-  def director
-    return Director.where({ :id => self.director_id }).at(0)
-  end
+  belongs_to(:director)
+  has_many(:characters)
+  has_many(:actors, through: :characters, source: :actor)
+  # def director
+  #   return Director.where({ :id => self.director_id }).at(0)
+  # end
 
-  def characters
-    return Character.where({ :movie_id => self.id }).at(0)
-  end
+  # def characters
+  #   return Character.where({ :movie_id => self.id }).at(0)
+  # end
 end
